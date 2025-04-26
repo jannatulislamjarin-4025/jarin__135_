@@ -1,29 +1,37 @@
 import 'package:flutter/foundation.dart';
 
-class Task { 
+class Task {
+  String id;
   String task;
   DateTime time;
-  Task({required this.task,required this.time});
-  factory Task.fromString(String task)
-  {
+
+  Task({
+    required this.id,
+    required this.task,
+    required this.time,
+  });
+
+  factory Task.fromString(String taskText) {
     return Task(
-      task:task,
+      id: DateTime.now().millisecondsSinceEpoch.toString(), // ID generate
+      task: taskText,
       time: DateTime.now(),
     );
-  } 
-  factory Task.fromMap(Map<String,dynamic>map)
-  {
+  }
+
+  factory Task.fromMap(Map<String, dynamic> map) {
     return Task(
-      task:map['task'],
-      time: DateTime.fromMicrosecondsSinceEpoch(map['time']),
+      id: map['id'],
+      task: map['task'],
+      time: DateTime.fromMillisecondsSinceEpoch(map['time']),
     );
-  } 
-  Map<String,dynamic>getMap()
-  {
-    return
-    {
-      'task':this.task,
-      'time':this.time.millisecondsSinceEpoch,
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'task': task,
+      'time': time.millisecondsSinceEpoch,
     };
   }
 }
